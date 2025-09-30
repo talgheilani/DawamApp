@@ -1,0 +1,110 @@
+@model IEnumerable<DawamApp.Models.EmployeeStatus>
+
+@{
+    ViewData["Title"] = "Admin Calendar - DawamApp";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+
+<style>
+    /* Sidebar styling */
+    .sidebar {
+        width: 200px;
+        border-right: 1px solid #ddd;
+        padding: 20px;
+    }
+
+    /* Light background for weekends */
+    .fc-day-sat, .fc-day-fri {
+        background-color: #f8f9fa;
+    }
+</style>
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Sidebar Filters -->
+        <div class="col-md-2 sidebar">
+            <h5>Filters</h5>
+            <div class="mb-2">
+                <input type="checkbox" id="all" checked>
+                <label for="all">All</label>
+            </div>
+            <div class="mb-2">
+                <input type="checkbox" class="status-filter" value="Training" checked>
+                <label>Training</label>
+            </div>
+            <div class="mb-2">
+                <input type="checkbox" class="status-filter" value="Discharge" checked>
+                <label>Discharge</label>
+            </div>
+            <div class="mb-2">
+                <input type="checkbox" class="status-filter" value="Vacation" checked>
+                <label>Vacation</label>
+            </div>
+            <div class="mb-2">
+                <input type="checkbox" class="status-filter" value="Errand" checked>
+                <label>Errand</label>
+            </div>
+            <div class="mb-2">
+                <input type="checkbox" class="status-filter" value="Workshop" checked>
+                <label>Workshop</label>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="col-md-10">
+            <h2 class="text-center mb-3">Admin Calendar</h2>
+            <div id="calendar"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridWeek,dayGridMonth,multiMonthYear'
+        },
+        views: {
+            multiMonthYear: {
+                type: 'dayGridMonth',
+                duration: { months: 12 },
+                buttonText: 'Year'
+            }
+        },
+        events: function(fetchInfo, successCallback, failureCallback) {
+            var filters = [];
+            document.querySelectorAll('.status-filter:checked').forEach(cb => filters.push(cb.value));
+            fetch('/Admin/GetEvents?statuses=' + filters.join(','))
+                .then(res => res.json())
+                .then(data => successCallback(data))
+                .catch(err => failureCallback(err));
+        }
+    });
+
+    calendar.render();
+
+    // Filters
+    document.querySelectorAll('.status-filter').forEach(cb => {
+        cb.addEventListener('change', function () {
+            calendar.refetchEvents();
+            document.getElementById('all').checked =
+                document.querySelectorAll('.status-filter:checked').length ===
+                document.querySelectorAll('.status-filter').length;
+        });
+    });
+
+    document.getElementById('all').addEventListener('change', function() {
+        var checked = this.checked;
+        document.querySelectorAll('.status-filter').forEach(cb => cb.checked = checked);
+        calendar.refetchEvents();
+    });
+});
+</script>
