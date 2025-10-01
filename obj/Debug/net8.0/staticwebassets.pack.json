@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\DawamApp.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\tasnim.ks\\Desktop\\DawamApp\\wwwroot\\Images\\employee.png",
+      "PackagePath": "staticwebassets\\Images\\employee.png"
+    },
+    {
       "Id": "C:\\Users\\tasnim.ks\\Desktop\\DawamApp\\wwwroot\\Images\\logo-mem.svg",
       "PackagePath": "staticwebassets\\Images\\logo-mem.svg"
     },

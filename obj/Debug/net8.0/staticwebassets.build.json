@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "O6FFJaHHYAJcC8aoh3erxgwOuLasmtSZuV4r9nE7Y0k=",
+  "Hash": "xBj+oABnpePcAHHBr3cgbe8FEXg8tVIH7PO3vkykf+g=",
   "Source": "DawamApp",
   "BasePath": "_content/DawamApp",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\tasnim.ks\\Desktop\\DawamApp\\wwwroot\\Images\\employee.png",
+      "SourceId": "DawamApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\tasnim.ks\\Desktop\\DawamApp\\wwwroot\\",
+      "BasePath": "_content/DawamApp",
+      "RelativePath": "Images/employee.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\employee.png"
     },
     {
       "Identity": "C:\\Users\\tasnim.ks\\Desktop\\DawamApp\\wwwroot\\Images\\logo-mem.svg",

@@ -14,13 +14,34 @@
         width: 200px;
         border-right: 1px solid #ddd;
         padding: 20px;
-         background-color: #d9e6ff;
-
+        background-color: #3466bc29; /* Light blue */
     }
 
     /* Light background for weekends */
     .fc-day-sat, .fc-day-fri {
         background-color: #f8f9fa;
+    }
+
+    /* FullCalendar buttons color */
+    .fc .fc-button {
+        background-color: #224587;
+        border-color: #224587;
+        color: #fff;
+        font-weight: 500;
+    }
+
+    .fc .fc-button:hover,
+    .fc .fc-button:focus,
+    .fc .fc-button:active {
+        background-color: #1b356e; /* slightly darker on hover */
+        border-color: #1b356e;
+        color: #fff;
+    }
+
+    .fc .fc-button-primary:not(:disabled).fc-button-active {
+        background-color: #1b356e;
+        border-color: #1b356e;
+        color: #fff;
     }
 </style>
 
