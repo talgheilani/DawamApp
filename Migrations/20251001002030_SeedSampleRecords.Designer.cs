@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DawamApp.Migrations
 {
     [DbContext(typeof(DawamAppDbContext))]
-    [Migration("20250930015201_SeedSampleRecords")]
+    [Migration("20251001002030_SeedSampleRecords")]
     partial class SeedSampleRecords
     {
         /// <inheritdoc />
@@ -48,40 +48,40 @@ namespace DawamApp.Migrations
                         {
                             Id = 1,
                             EmployeeName = "Ahmed",
-                            EndDate = new DateTime(2025, 9, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2025, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2025, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0
                         },
                         new
                         {
                             Id = 2,
                             EmployeeName = "Sara",
-                            EndDate = new DateTime(2025, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2025, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2025, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2025, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 2
                         },
                         new
                         {
                             Id = 3,
                             EmployeeName = "Ali",
-                            EndDate = new DateTime(2025, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2025, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2025, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2025, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1
                         },
                         new
                         {
                             Id = 4,
                             EmployeeName = "Layla",
-                            EndDate = new DateTime(2025, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2025, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2025, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2025, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 3
                         },
                         new
                         {
                             Id = 5,
                             EmployeeName = "Omar",
-                            EndDate = new DateTime(2025, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartDate = new DateTime(2025, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2025, 10, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2025, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 4
                         });
                 });
