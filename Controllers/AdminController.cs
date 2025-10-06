@@ -43,8 +43,8 @@ namespace DawamApp.Controllers
                 {
                     StatusType.Training => "#28a745",
                     StatusType.Discharge => "#dc3545",
-                    StatusType.Vacation => "#ffc107",
-                    StatusType.Errand => "#0d6efd",
+                    StatusType.Holiday => "#ffc107",
+                    StatusType.Duty => "#0d6efd",
                     StatusType.Workshop => "#6f42c1",
                     _ => "#6c757d"
                 }

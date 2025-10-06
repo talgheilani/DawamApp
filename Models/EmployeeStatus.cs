@@ -7,8 +7,8 @@ namespace DawamApp.Models
     {
         Training,
         Discharge,
-        Vacation,
-        Errand,
+        Holiday,
+        Duty,
         Workshop
     }
 
