@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DawamApp.Migrations
 {
     [DbContext(typeof(DawamAppDbContext))]
-    [Migration("20251006195426_SeedSampleRecords")]
+    [Migration("20251006200040_SeedSampleRecords")]
     partial class SeedSampleRecords
     {
         /// <inheritdoc />
