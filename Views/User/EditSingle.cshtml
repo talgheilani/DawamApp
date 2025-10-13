@@ -1,13 +1,13 @@
 @model DawamApp.Models.EmployeeStatus
 
 @{
-    ViewData["Title"] = "Add Employee Status";
+    ViewData["Title"] = "Edit Employee Status";
 }
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 <div class="container mt-4">
-    <h2 class="text-center mb-4">Add Employee Status</h2>
+    <h2 class="text-center mb-4">Edit Employee Status</h2>
 
     @if (TempData["SuccessMessage"] != null)
     {
@@ -20,7 +20,9 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card shadow-sm p-3">
-                <form asp-action="Create" method="post">
+                <form asp-action="EditSingle" method="post" asp-route-id="@Model.Id">
+                    <input type="hidden" asp-for="Id" />
+
                     <div class="mb-3">
                         <label asp-for="EmployeeName" class="form-label"></label>
                         <input asp-for="EmployeeName" class="form-control" />
@@ -30,28 +32,33 @@
                     <div class="mb-3">
                         <label asp-for="Status" class="form-label"></label>
                         <select asp-for="Status" class="form-select">
-                            <option value="Training">Training</option>
-                            <option value="Discharge">Discharge</option>
-                            <option value="Holiday">Holiday</option>
-                            <option value="Duty">Duty</option>
-                            <option value="Workshop">Workshop</option>
+                            <option value="Training" selected="@(@Model.Status == DawamApp.Models.StatusType.Training)">Training</option>
+                            <option value="Discharge" selected="@(@Model.Status == DawamApp.Models.StatusType.Discharge)">Discharge</option>
+                            <option value="Holiday" selected="@(@Model.Status == DawamApp.Models.StatusType.Holiday)">Holiday</option>
+                            <option value="Duty" selected="@(@Model.Status == DawamApp.Models.StatusType.Duty)">Duty</option>
+                            <option value="Workshop" selected="@(@Model.Status == DawamApp.Models.StatusType.Workshop)">Workshop</option>
                         </select>
                         <span asp-validation-for="Status" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label asp-for="StartDate" class="form-label"></label>
-                        <input type="text" name="StartDateStr" class="form-control" placeholder="dd/MM/yyyy" />
+                        <input type="text" name="StartDateStr" class="form-control"
+                               value="@Model.StartDate.ToString("dd/MM/yyyy")" />
                         <span asp-validation-for="StartDate" class="text-danger"></span>
                     </div>
 
                     <div class="mb-3">
                         <label asp-for="EndDate" class="form-label"></label>
-                        <input type="text" name="EndDateStr" class="form-control" placeholder="dd/MM/yyyy" />
+                        <input type="text" name="EndDateStr" class="form-control"
+                               value="@Model.EndDate.ToString("dd/MM/yyyy")" />
                         <span asp-validation-for="EndDate" class="text-danger"></span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Edit" class="btn btn-secondary">Back to List</a>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
                 </form>
             </div>
         </div>
