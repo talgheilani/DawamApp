@@ -1,19 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Home";
+    var isLoggedIn = Context.Session.GetString("Email") != null;
 }
 
 <div class="home-container">
     <div class="text-container">
         <h1>Welcome to</h1>
         <h1>Dawam!</h1>
+
+        @if (!isLoggedIn)
+        {
+            <div class="button-container mt-4">
+                <a class="btn btn-primary me-2" asp-controller="Account" asp-action="Login">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                </a>
+                <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Register">
+                    <i class="bi bi-person-plus me-1"></i> Create Account
+                </a>
+            </div>
+        }
     </div>
+
     <div class="image-container">
         <img src="~/images/employee.png" alt="Employee" class="blur-edge">
     </div>
 </div>
 
 <style>
-
     .home-container {
         position: relative;
         height: 100vh;
@@ -22,20 +35,45 @@
         overflow: hidden;
     }
 
-    /* Text styling */
     .text-container {
         position: absolute;
         left: 5%;
-        top: 40%;
+        top: 35%; /* moved up a bit */
         text-align: left;
         z-index: 2;
     }
 
     .text-container h1 {
         margin: 0;
-        font-size: 4rem; /* slightly bigger */
-        font-weight: 900; /* bold */
+        font-size: 3.2rem; /* slightly smaller */
+        font-weight: 900;
         color: #224587;
+    }
+
+    .button-container .btn {
+        font-size: 1.1rem;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+    }
+
+    .btn-primary {
+        background-color: #224587;
+        border-color: #224587;
+    }
+
+    .btn-primary:hover {
+        background-color: #3466bc;
+        border-color: #3466bc;
+    }
+
+    .btn-outline-primary {
+        color: #224587;
+        border-color: #224587;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #224587;
+        color: white;
     }
 
     .image-container {
@@ -50,7 +88,6 @@
         object-fit: cover;
     }
 
-    /* Blur/fade starting from middle of the page */
     .blur-edge {
         mask-image: linear-gradient(to left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
         -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);

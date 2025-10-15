@@ -34,7 +34,6 @@ namespace DawamApp.Controllers
                     return View(model);
                 }
 
-                // Check if email already exists
                 var existingUser = _context.UserAccounts.FirstOrDefault(u => u.Email == model.Email);
                 if (existingUser != null)
                 {
@@ -45,7 +44,6 @@ namespace DawamApp.Controllers
                 _context.UserAccounts.Add(model);
                 _context.SaveChanges();
 
-                TempData["SuccessMessage"] = "Account created successfully! Please login.";
                 return RedirectToAction("Login");
             }
 
@@ -82,15 +80,15 @@ namespace DawamApp.Controllers
             HttpContext.Session.SetString("LastName", user.LastName);
             HttpContext.Session.SetString("Email", user.Email);
 
-            return RedirectToAction("Index", "Home"); // Redirect after login
+            return RedirectToAction("Index", "Home");
         }
 
-        // GET: /Account/Logout
-        [HttpGet]
+        // ✅ Use POST for secure sign-out (not GET)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Login");
-        }
+return RedirectToAction("Index", "Home");        }
     }
 }
