@@ -15,11 +15,13 @@ namespace DawamApp.Controllers
             _context = context;
         }
 
+        // Admin dashboard (open access)
         public IActionResult Index()
         {
             return View();
         }
 
+        // Get events for calendar
         [HttpGet]
         public IActionResult GetEvents(string statuses)
         {
@@ -38,14 +40,14 @@ namespace DawamApp.Controllers
             {
                 title = $"{s.EmployeeName} - {s.Status}",
                 start = s.StartDate.ToString("yyyy-MM-dd"),
-                end = s.EndDate.AddDays(1).ToString("yyyy-MM-dd"), // FullCalendar exclusive end
+                end = s.EndDate.AddDays(1).ToString("yyyy-MM-dd"),
                 color = s.Status switch
                 {
-                    StatusType.Training => "#28a745",
-                    StatusType.Discharge => "#dc3545",
-                    StatusType.Holiday => "#ffc107",
-                    StatusType.Duty => "#0d6efd",
-                    StatusType.Workshop => "#6f42c1",
+                    StatusType.Training => "#7203a1ff",
+                    StatusType.Discharge => "#04c487ff",
+                    StatusType.Holiday => "#d7275fff",
+                    StatusType.Duty => "#fcb54aff",
+                    StatusType.Workshop => "#0487c4ff",
                     _ => "#6c757d"
                 }
             }).ToList();

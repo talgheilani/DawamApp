@@ -9,20 +9,18 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
 
 <style>
-    /* Sidebar styling */
     .sidebar {
         width: 200px;
         border-right: 1px solid #ddd;
         padding: 20px;
-        background-color: #3466bc29; /* Light blue */
+        border-radius: 5px;
+        background-color: #3466bc29;
     }
 
-    /* Light background for weekends */
     .fc-day-sat, .fc-day-fri {
         background-color: #f8f9fa;
     }
 
-    /* FullCalendar buttons color */
     .fc .fc-button {
         background-color: #224587;
         border-color: #224587;
@@ -33,7 +31,7 @@
     .fc .fc-button:hover,
     .fc .fc-button:focus,
     .fc .fc-button:active {
-        background-color: #1b356e; /* slightly darker on hover */
+        background-color: #1b356e;
         border-color: #1b356e;
         color: #fff;
     }
@@ -42,6 +40,26 @@
         background-color: #1b356e;
         border-color: #1b356e;
         color: #fff;
+    }
+
+    .header-bar {
+        background-color: #3466bc29;
+        padding: 10px 15px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .access-message {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+        border-radius: 5px;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        text-align: center;
     }
 </style>
 
@@ -78,17 +96,25 @@
 
         <!-- Calendar -->
         <div class="col-md-10">
-    <!-- Edit button -->
-    <div class="d-flex justify-content-end mb-3">
-        <a href="/User/Edit" class="btn btn-primary" style="background-color:#224587; border-color:#224587;">
-            <i class="bi bi-pencil-square"></i> Edit Statuses
-        </a>
-    </div>
 
-    <h2 class="text-center mb-3">Admin Calendar</h2>
-    <div id="calendar"></div>
-</div>
+            <!-- Access Granted Message -->
+            @if(ViewBag.AccessGranted != null && ViewBag.AccessGranted == true)
+            {
+                <div class="access-message">
+                    Access Granted. Welcome Admin!
+                </div>
+            }
 
+            <!-- Light blue rectangle with buttons and title -->
+            <div class="header-bar">
+                <h2 class="mb-0">Admin Calendar</h2>
+                <a href="/User/Edit" class="btn btn-primary" style="background-color:#224587; border-color:#224587; border-radius:0;">
+                    <i class="bi bi-pencil-square"></i> Edit Statuses
+                </a>
+            </div>
+
+            <div id="calendar"></div>
+        </div>
     </div>
 </div>
 

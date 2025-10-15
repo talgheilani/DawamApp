@@ -10,6 +10,9 @@ namespace DawamApp.Models
         {
         }
 
+        public DbSet<UserAccount> UserAccounts { get; set; }
+
+        
         public DbSet<EmployeeStatus> EmployeeStatuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

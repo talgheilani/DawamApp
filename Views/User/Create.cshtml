@@ -1,13 +1,31 @@
 @model DawamApp.Models.EmployeeStatus
 
 @{
-    ViewData["Title"] = "Add Employee Status";
+    ViewData["Title"] = "Add New Employee Status";
 }
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 
+<style>
+    /* Light blue rectangle for form title */
+    .header-bar {
+    background-color: #3466bc29; /* light blue from navbar palette */
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center; /* center horizontally */
+    align-items: center;     /* center vertically */
+}
+
+</style>
+
 <div class="container mt-4">
-    <h2 class="text-center mb-4">Add Employee Status</h2>
+
+    <!-- Light blue rectangle for form title -->
+    <div class="header-bar">
+        <h2 class="mb-0">Add New Employee Status</h2>
+    </div>
 
     @if (TempData["SuccessMessage"] != null)
     {
@@ -51,7 +69,10 @@
                         <span asp-validation-for="EndDate" class="text-danger"></span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn text-white" style="background-color:#224587; border-radius:0;">
+                        Save
+                    </button>
+
                 </form>
             </div>
         </div>

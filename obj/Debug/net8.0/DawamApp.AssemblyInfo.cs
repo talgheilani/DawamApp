@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DawamApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+31f9be363199d699693653700a1f801af2bf9fe6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4652fff7481e30689fb407ed480ab0000986fd90")]
 [assembly: System.Reflection.AssemblyProductAttribute("DawamApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DawamApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
