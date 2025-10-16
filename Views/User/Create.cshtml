@@ -40,10 +40,14 @@
             <div class="card shadow-sm p-3">
                 <form asp-action="Create" method="post">
                     <div class="mb-3">
-                        <label asp-for="EmployeeName" class="form-label"></label>
-                        <input asp-for="EmployeeName" class="form-control" />
-                        <span asp-validation-for="EmployeeName" class="text-danger"></span>
-                    </div>
+    <label asp-for="EmployeeName" class="form-label"></label>
+    <input asp-for="EmployeeName"
+           class="form-control"
+           value="@($"{Context.Session.GetString("FirstName")} {Context.Session.GetString("LastName")}")"
+           readonly />
+    <span asp-validation-for="EmployeeName" class="text-danger"></span>
+</div>
+
 
                     <div class="mb-3">
                         <label asp-for="Status" class="form-label"></label>

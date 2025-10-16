@@ -44,6 +44,7 @@ namespace DawamApp.Controllers
                 _context.UserAccounts.Add(model);
                 _context.SaveChanges();
 
+                TempData["SuccessMessage"] = "Account created successfully! Please login.";
                 return RedirectToAction("Login");
             }
 
@@ -64,18 +65,29 @@ namespace DawamApp.Controllers
         {
             if (string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Password))
             {
-                ModelState.AddModelError("", "Email and Password are required");
+                ViewBag.Error = "Email and Password are required";
                 return View();
             }
 
-            var user = _context.UserAccounts.FirstOrDefault(u => u.Email == Email && u.Password == Password);
+            var user = _context.UserAccounts.FirstOrDefault(u => u.Email == Email);
+
             if (user == null)
             {
-                ModelState.AddModelError("", "Invalid Email or Password");
+                // Email not registered
+                ViewBag.NotRegistered = true;
+                ViewBag.Error = "No account found with this email. Please create one.";
                 return View();
             }
 
-            // Store user info in session
+            if (user.Password != Password)
+            {
+                // Wrong password
+                ViewBag.WrongPassword = true;
+                ViewBag.Error = "Incorrect password. Please try again.";
+                return View();
+            }
+
+            // Successful login → store session
             HttpContext.Session.SetString("FirstName", user.FirstName);
             HttpContext.Session.SetString("LastName", user.LastName);
             HttpContext.Session.SetString("Email", user.Email);
@@ -83,12 +95,13 @@ namespace DawamApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // ✅ Use POST for secure sign-out (not GET)
+        // POST: /Account/Logout
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-return RedirectToAction("Index", "Home");        }
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
