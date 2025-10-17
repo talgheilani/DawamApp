@@ -14,14 +14,12 @@ namespace DawamApp.Controllers
             _context = context;
         }
 
-        // GET: /Account/Register
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
-        // POST: /Account/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Register(UserAccount model, string ConfirmPassword)
@@ -41,6 +39,7 @@ namespace DawamApp.Controllers
                     return View(model);
                 }
 
+                // Save user
                 _context.UserAccounts.Add(model);
                 _context.SaveChanges();
 
@@ -51,14 +50,12 @@ namespace DawamApp.Controllers
             return View(model);
         }
 
-        // GET: /Account/Login
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        // POST: /Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(string Email, string Password)
@@ -73,29 +70,29 @@ namespace DawamApp.Controllers
 
             if (user == null)
             {
-                // Email not registered
-                ViewBag.NotRegistered = true;
                 ViewBag.Error = "No account found with this email. Please create one.";
                 return View();
             }
 
             if (user.Password != Password)
             {
-                // Wrong password
-                ViewBag.WrongPassword = true;
                 ViewBag.Error = "Incorrect password. Please try again.";
                 return View();
             }
 
-            // Successful login → store session
+            // Assign role manually for your email
+            if(user.Email.ToLower() == "tasnim.k.algheilani@mem.gov.om")
+                user.Role = "Admin";
+
+            // Store session
             HttpContext.Session.SetString("FirstName", user.FirstName);
             HttpContext.Session.SetString("LastName", user.LastName);
             HttpContext.Session.SetString("Email", user.Email);
+            HttpContext.Session.SetString("Role", user.Role);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "home"); // Redirect to dashboard
         }
 
-        // POST: /Account/Logout
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Logout()

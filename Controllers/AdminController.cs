@@ -1,5 +1,6 @@
 using DawamApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,30 +10,48 @@ namespace DawamApp.Controllers
     public class AdminController : Controller
     {
         private readonly DawamAppDbContext _context;
+        private const string AdminEmail = "tasnim.k.algheilani@mem.gov.om";
 
         public AdminController(DawamAppDbContext context)
         {
             _context = context;
         }
 
-        // Admin dashboard (open access)
+        // Dashboard
         public IActionResult Index()
         {
+            var email = HttpContext.Session.GetString("Email");
+            ViewBag.AccessGranted = email == AdminEmail; // Admin flag
             return View();
         }
 
-        // Get events for calendar
+        // Get events for FullCalendar
         [HttpGet]
         public IActionResult GetEvents(string statuses)
         {
+            var email = HttpContext.Session.GetString("Email");
+            bool isAdmin = email == AdminEmail;
+
             var selectedStatuses = string.IsNullOrEmpty(statuses)
                 ? new List<StatusType>()
                 : statuses.Split(',').Select(s => Enum.Parse<StatusType>(s)).ToList();
 
+            // Query
             var query = _context.EmployeeStatuses.AsQueryable();
 
+            if (!isAdmin)
+            {
+                // Normal users see only their own records
+                var firstName = HttpContext.Session.GetString("FirstName");
+                var lastName = HttpContext.Session.GetString("LastName");
+                string fullName = $"{firstName} {lastName}";
+                query = query.Where(s => s.EmployeeName == fullName);
+            }
+
             if (selectedStatuses.Any())
+            {
                 query = query.Where(s => selectedStatuses.Contains(s.Status));
+            }
 
             var list = query.ToList();
 
