@@ -18,7 +18,7 @@ namespace DawamApp.Controllers
 
         // GET: User/Create
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -27,25 +27,23 @@ namespace DawamApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(EmployeeStatus model, string StartDateStr, string EndDateStr)
         {
-            if (!string.IsNullOrEmpty(StartDateStr))
-            {
-                if (DateTime.TryParseExact(StartDateStr, "dd/MM/yyyy", null,
-                    System.Globalization.DateTimeStyles.None, out DateTime start))
-                {
-                    model.StartDate = start;
-                }
-                else ModelState.AddModelError("StartDate", "Invalid Start Date format");
-            }
+            string[] dateFormats = { "dd/MM/yyyy", "yyyy-MM-dd" };
 
-            if (!string.IsNullOrEmpty(EndDateStr))
+            if (!string.IsNullOrEmpty(StartDateStr) &&
+                DateTime.TryParseExact(StartDateStr, dateFormats, null,
+                System.Globalization.DateTimeStyles.None, out DateTime start))
             {
-                if (DateTime.TryParseExact(EndDateStr, "dd/MM/yyyy", null,
-                    System.Globalization.DateTimeStyles.None, out DateTime end))
-                {
-                    model.EndDate = end;
-                }
-                else ModelState.AddModelError("EndDate", "Invalid End Date format");
+                model.StartDate = start;
             }
+            else ModelState.AddModelError("StartDate", "Invalid Start Date format");
+
+            if (!string.IsNullOrEmpty(EndDateStr) &&
+                DateTime.TryParseExact(EndDateStr, dateFormats, null,
+                System.Globalization.DateTimeStyles.None, out DateTime end))
+            {
+                model.EndDate = end;
+            }
+            else ModelState.AddModelError("EndDate", "Invalid End Date format");
 
             if (ModelState.IsValid)
             {
@@ -58,57 +56,46 @@ namespace DawamApp.Controllers
             return View(model);
         }
 
-        // GET: User/Edit (table listing)
+        // GET: User/Edit (list all)
         [HttpGet]
-        [Route("User/Edit")]
         public async Task<IActionResult> Edit()
         {
             var statuses = await _context.EmployeeStatuses.ToListAsync();
-            return View(statuses); // Edit.cshtml
+            return View(statuses);
         }
 
-        // GET: User/Edit/5 (edit single)
+        // GET: User/EditSingle/5
         [HttpGet]
-        [Route("User/Edit/{id:int}")]
         public async Task<IActionResult> EditSingle(int id)
         {
             var status = await _context.EmployeeStatuses.FindAsync(id);
             if (status == null) return NotFound();
-            return View("EditSingle", status);
+            return View(status);
         }
 
-        // POST: User/Edit/5
+        // POST: User/EditSingle/5
         [HttpPost]
-        [Route("User/Edit/{id:int}")]
         public async Task<IActionResult> EditSingle(int id, EmployeeStatus model, string StartDateStr, string EndDateStr)
         {
             if (id != model.Id) return NotFound();
 
-            DateTime start = model.StartDate;
-            DateTime end = model.EndDate;
+            string[] dateFormats = { "dd/MM/yyyy", "yyyy-MM-dd" };
 
-            if (!string.IsNullOrEmpty(StartDateStr))
+            if (!string.IsNullOrEmpty(StartDateStr) &&
+                DateTime.TryParseExact(StartDateStr, dateFormats, null,
+                System.Globalization.DateTimeStyles.None, out DateTime start))
             {
-                if (DateTime.TryParseExact(StartDateStr, "dd/MM/yyyy", null,
-                    System.Globalization.DateTimeStyles.None, out DateTime parsedStart))
-                {
-                    start = parsedStart;
-                }
-                else ModelState.AddModelError("StartDate", "Invalid Start Date format");
+                model.StartDate = start;
             }
+            else ModelState.AddModelError("StartDate", "Invalid Start Date format");
 
-            if (!string.IsNullOrEmpty(EndDateStr))
+            if (!string.IsNullOrEmpty(EndDateStr) &&
+                DateTime.TryParseExact(EndDateStr, dateFormats, null,
+                System.Globalization.DateTimeStyles.None, out DateTime end))
             {
-                if (DateTime.TryParseExact(EndDateStr, "dd/MM/yyyy", null,
-                    System.Globalization.DateTimeStyles.None, out DateTime parsedEnd))
-                {
-                    end = parsedEnd;
-                }
-                else ModelState.AddModelError("EndDate", "Invalid End Date format");
+                model.EndDate = end;
             }
-
-            model.StartDate = start;
-            model.EndDate = end;
+            else ModelState.AddModelError("EndDate", "Invalid End Date format");
 
             if (ModelState.IsValid)
             {
@@ -118,7 +105,7 @@ namespace DawamApp.Controllers
                 return RedirectToAction(nameof(Edit));
             }
 
-            return View("EditSingle", model);
+            return View(model);
         }
 
         // POST: User/Delete/5

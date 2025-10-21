@@ -17,7 +17,6 @@
     .fc .fc-button:hover, .fc .fc-button:focus, .fc .fc-button:active { background-color:#1b356e; border-color:#1b356e; color:#fff; }
     .fc .fc-button-primary:not(:disabled).fc-button-active { background-color:#1b356e; border-color:#1b356e; color:#fff; }
     .header-bar { background-color:#3466bc29; padding:10px 15px; border-radius:5px; margin-bottom:15px; display:flex; justify-content:space-between; align-items:center; }
-    .access-message { background-color:#d4edda; color:#155724; border:1px solid #c3e6cb; border-radius:5px; padding:10px 15px; margin-bottom:15px; text-align:center; }
 </style>
 
 <div class="container-fluid mt-4">
@@ -26,23 +25,32 @@
         <div class="col-md-2 sidebar">
             <h5>Filters</h5>
             <div class="mb-2"><input type="checkbox" id="all" checked><label for="all">All</label></div>
-            <div class="mb-2"><input type="checkbox" class="status-filter" value="Training" checked><label>Training</label></div>
-            <div class="mb-2"><input type="checkbox" class="status-filter" value="Discharge" checked><label>Discharge</label></div>
-            <div class="mb-2"><input type="checkbox" class="status-filter" value="Holiday" checked><label>Holiday</label></div>
-            <div class="mb-2"><input type="checkbox" class="status-filter" value="Duty" checked><label>Duty</label></div>
-            <div class="mb-2"><input type="checkbox" class="status-filter" value="Workshop" checked><label>Workshop</label></div>
+            <div class="mb-2"><input type="checkbox" class="status-filter" value="Training" checked><label>Training (تدريب)</label></div>
+            <div class="mb-2"><input type="checkbox" class="status-filter" value="Discharge" checked><label>Discharge (إعفاء)</label></div>
+            <div class="mb-2"><input type="checkbox" class="status-filter" value="Holiday" checked><label>Holiday (إجازة)</label></div>
+            <div class="mb-2"><input type="checkbox" class="status-filter" value="Duty" checked><label>Duty (مهمة)</label></div>
+            <div class="mb-2"><input type="checkbox" class="status-filter" value="Workshop" checked><label>Workshop (ورشة)</label></div>
         </div>
 
         <!-- Calendar -->
         <div class="col-md-10">
 
             <!-- Admin access message -->
-            @if(isAdmin)
-            {
-                <div class="access-message">
-                    Access Granted. Welcome Admin!
-                </div>
-            }
+@if (isAdmin)
+{
+    <div class="access-message" id="adminMessage" style="position: relative; padding: 10px; background-color: #d4edda; color: #155724; border: 1px solid #bee5eb; border-radius: 5px;">
+        Access Granted. Welcome Admin!
+        <span id="closeAdminMessage" style="position: absolute; top: 5px; right: 10px; cursor: pointer; font-weight: bold;">&times;</span>
+    </div>
+
+    <script>
+        document.getElementById('closeAdminMessage').onclick = function() {
+            var msg = document.getElementById('adminMessage');
+            msg.style.display = 'none';
+        }
+    </script>
+}
+
 
             <!-- Header bar with conditional Edit button -->
             <div class="header-bar">
